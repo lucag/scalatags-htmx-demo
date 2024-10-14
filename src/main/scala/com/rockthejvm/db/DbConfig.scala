@@ -1,15 +1,13 @@
 package com.rockthejvm.db
 
 import com.rockthejvm.domain.config.AppConfig
-import zio.{ZIO, ZLayer}
+import zio.ZLayer
 
-case class DbConfig(jdbcUrl: String) {
+case class DbConfig(jdbcUrl: String):
   val connectionInitSql = "PRAGMA foreign_keys = ON"
-}
 
-object DbConfig {
+object DbConfig:
   val live: ZLayer[AppConfig, Nothing, DbConfig] =
-    ZLayer.fromFunction { (appConfig: AppConfig) =>
-      DbConfig(appConfig.db.url)
+    ZLayer.fromFunction[AppConfig => DbConfig] {
+      appConfig => DbConfig(appConfig.db.url)
     }
-}

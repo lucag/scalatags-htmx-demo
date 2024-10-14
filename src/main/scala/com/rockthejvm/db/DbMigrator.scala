@@ -30,4 +30,4 @@ object DbMigrator:
       extends RuntimeException(s"$msg\n$stackTrace")
 
   val live: ZLayer[DataSource, Nothing, DbMigrator] =
-    ZLayer.fromFunction(DbMigrator(_))
+    ZLayer.fromFunction(DbMigrator.apply)
