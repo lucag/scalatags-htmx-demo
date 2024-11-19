@@ -17,16 +17,15 @@ object Main extends ZIOAppDefault:
 
   override def run: ZIO[Any & ZIOAppArgs & Scope, Any, Any] =
 
-    val basicRoutes =
-      Routes(
-        Method.GET / ""
-          -> handler(Response.redirect(Redirects.contacts)),
-        Method.GET / "static" / "css" / "main.css"
-          -> Handler.fromResource("css/main.css").orDie
-      )
+    val basicRoutes: Routes[Any, Response] = Routes(
+      Method.GET / ""
+        -> handler(Response.redirect(Redirects.contacts)),
+      Method.GET / "static" / "css" / "main.css"
+        -> Handler.fromResource("css/main.css").orDie
+    )
 
     val htmxApp = ZIO.service[ContactsController].map: contacts =>
-      basicRoutes.toHttpApp ++ contacts.routes.toHttpApp
+      basicRoutes ++ contacts.routes
 
     val program =
       for

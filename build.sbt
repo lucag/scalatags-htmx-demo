@@ -1,17 +1,17 @@
-val currentScalaVersion   = "3.5.1"
+val currentScalaVersion   = "3.5.2"
 // val currentScalaVersion   = "3.4.2"
 val emailValidatorVersion = "1.7"
-val flywayVersion         = "10.17.2"
-val hikariVersion         = "5.1.0"
+val flywayVersion         = "10.21.0"
+val hikariVersion         = "6.2.1"
 val jwtVersion            = "4.4.0"
-val logbackVersion        = "1.5.7"
+val logbackVersion        = "1.5.12"
 val password4jVersion     = "1.7.3"
-val quillVersion          = "4.8.5"
-val sqliteVersion         = "3.46.1.0"
+val quillVersion          = "4.8.6"
+val sqliteVersion         = "3.47.0.0"
+val sttpZioJsonVersion    = "3.10.1"
 val zioConfigVersion      = "4.0.2"
-val sttpZioJsonVersion    = "3.9.8"
-val zioLoggingVersion     = "2.3.1"
-val zioTestVersion        = "2.1.8"
+val zioLoggingVersion     = "2.4.0"
+val zioTestVersion        = "2.1.12"
 
 val config = Seq(
   "dev.zio" %% "zio-config-typesafe" % zioConfigVersion,
@@ -19,10 +19,10 @@ val config = Seq(
 )
 
 val db = Seq(
-  "org.xerial"   % "sqlite-jdbc"    % sqliteVersion,
-  "org.flywaydb" % "flyway-core"    % flywayVersion,
   "com.zaxxer"   % "HikariCP"       % hikariVersion,
-  "io.getquill" %% "quill-jdbc-zio" % quillVersion
+  "io.getquill" %% "quill-jdbc-zio" % quillVersion,
+  "org.flywaydb" % "flyway-core"    % flywayVersion,
+  "org.xerial"   % "sqlite-jdbc"    % sqliteVersion
 )
 
 val html = Seq(
@@ -30,7 +30,7 @@ val html = Seq(
 )
 
 val http  = Seq(
-  "dev.zio" %% "zio-http" % "3.0.0-RC6"
+  "dev.zio" %% "zio-http" % "3.0.1"
 )
 val tests = Seq(
   "dev.zio"                       %% "zio-logging"       % zioLoggingVersion,
