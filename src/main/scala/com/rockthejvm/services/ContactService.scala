@@ -8,7 +8,7 @@ import zio.prelude.{ Validation, ZValidation }
 import zio.*
 
 class ContactService(contactsRepository: ContactsRepository):
-  type FormMap = Map[String, FormField]
+  type Form = Map[String, FormField]
 
   def searchContacts(searchTerm: String, page: Int) =
     if searchTerm.isBlank then contactsRepository.listContacts(page)
@@ -23,13 +23,13 @@ class ContactService(contactsRepository: ContactsRepository):
   def delete(id: Long) =
     contactsRepository.delete(id)
 
-  def update(id: Long, formMap: FormMap) =
-    extractContactFromQueryParams(formMap)
+  def update(id: Long, form: Form) =
+    contactFromQueryParams(form)
       .flatMap(contactsRepository.update(id, _))
 
-  def create(formMap: FormMap) =
-    extractContactFromQueryParams(formMap)
-      .flatMap(createContact)
+  def create(form: Form) =
+    contactFromQueryParams(form)
+      .flatMap(makeContact)
 
   def listContacts(page: Int) =
     contactsRepository.listContacts(page)
@@ -41,16 +41,16 @@ class ContactService(contactsRepository: ContactsRepository):
     contactsRepository.findByEmail(email)
       .map(maybeEmail => maybeEmail.map(_ => "Email already in use").getOrElse(""))
 
-  private def createContact(contact: Contact) =
+  private def makeContact(contact: Contact) =
     contactsRepository.insert(contact)
 
-  private def extractContactFromQueryParams(formData: FormMap): IO[RuntimeException, Contact] =
+  private def contactFromQueryParams(form: Form): IO[RuntimeException, Contact] =
     val validations: ZValidation[Nothing, Map[String, String], Contact] =
       Validation.validateWith(
         Validation.succeed(-1L),
-        extractNonEmptyString("name", formData.get("name")),
-        extractNonEmptyString("phone", formData.get("phone")),
-        extractNonEmptyString("email", formData.get("email"))
+        extractNonEmptyString("name", form.get("name")),
+        extractNonEmptyString("phone", form.get("phone")),
+        extractNonEmptyString("email", form.get("email"))
       )(Contact.apply)
 
     validations.toZIOParallelErrors

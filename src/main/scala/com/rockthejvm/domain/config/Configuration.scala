@@ -9,4 +9,9 @@ final case class DbConfig(url: String)
 
 object Configuration:
   val live: ZLayer[Any, Config.Error, AppConfig] =
-    ZLayer.fromZIO(TypesafeConfigProvider.fromResourcePath().load(deriveConfig[AppConfig]))
+    ZLayer
+      .fromZIO(
+        TypesafeConfigProvider
+          .fromResourcePath(false)
+          .load(deriveConfig[AppConfig])
+      )

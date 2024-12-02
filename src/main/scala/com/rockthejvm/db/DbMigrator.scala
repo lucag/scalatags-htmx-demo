@@ -23,7 +23,8 @@ class DbMigrator(ds: DataSource):
           ZIO.fail(DbMigrationFailed(r.error.message, r.error.stackTrace))
         case e                     => ZIO.unit
       }
-      .onError(cause => ZIO.logErrorCause("Database migration has failed", cause))
+      .onError: cause =>
+        ZIO.logErrorCause("Database migration has failed", cause)
 
 object DbMigrator:
   case class DbMigrationFailed(msg: String, stackTrace: String)

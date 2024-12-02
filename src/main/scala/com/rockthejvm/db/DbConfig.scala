@@ -8,6 +8,5 @@ case class DbConfig(jdbcUrl: String):
 
 object DbConfig:
   val live: ZLayer[AppConfig, Nothing, DbConfig] =
-    ZLayer.fromFunction[AppConfig => DbConfig] {
-      appConfig => DbConfig(appConfig.db.url)
-    }
+    ZLayer.fromFunction[AppConfig => DbConfig]: appConfig =>
+      DbConfig(appConfig.db.url)
