@@ -1,5 +1,4 @@
-val currentScalaVersion   = "3.5.2"
-// val currentScalaVersion   = "3.4.2"
+val currentScalaVersion   = "3.6.2"
 val emailValidatorVersion = "1.7"
 val flywayVersion         = "10.21.0"
 val hikariVersion         = "6.2.1"
@@ -41,20 +40,22 @@ val tests = Seq(
   "ch.qos.logback"                 % "logback-classic"   % logbackVersion
 )
 
-lazy val rootProject = (project in file(".")).settings(
-  Seq(
-    name                 := "zio-http-htmx",
-    version              := "0.1.2-SNAPSHOT",
-    organization         := "com.rockthejvm",
-    scalaVersion         := currentScalaVersion,
-    Test / fork          := true,
-    scalacOptions       --= Seq("-Ykind-projector"),
-    scalacOptions       ++= Seq(
-      "-Xmax-inlines",
-      "64",
-      "-Xkind-projector"
-    ),
-    libraryDependencies ++= config ++ db ++ tests ++ html ++ http,
-    testFrameworks       := Seq(new TestFramework("zio.test.sbt.ZTestFramework"))
-  )
-)
+lazy val `zio-http-htmx` =
+  (project in file("."))
+    .settings(
+      Seq(
+        name                 := "zio-http-htmx",
+        version              := "0.1.2-SNAPSHOT",
+        organization         := "com.rockthejvm",
+        scalaVersion         := currentScalaVersion,
+        Test / fork          := true,
+        scalacOptions       --= Seq("-Ykind-projector"),
+        scalacOptions       ++= Seq(
+          "-Xmax-inlines",
+          "64",
+          "-Xkind-projector"
+        ),
+        libraryDependencies ++= config ++ db ++ tests ++ html ++ http,
+        testFrameworks       := Seq(new TestFramework("zio.test.sbt.ZTestFramework"))
+      )
+    )
