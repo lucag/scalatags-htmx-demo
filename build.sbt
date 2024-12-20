@@ -1,16 +1,16 @@
 val currentScalaVersion   = "3.6.2"
 val emailValidatorVersion = "1.7"
-val flywayVersion         = "10.21.0"
+val flywayVersion         = "11.1.0"
 val hikariVersion         = "6.2.1"
 val jwtVersion            = "4.4.0"
-val logbackVersion        = "1.5.12"
+val logbackVersion        = "1.5.14"
 val password4jVersion     = "1.7.3"
 val quillVersion          = "4.8.6"
-val sqliteVersion         = "3.47.0.0"
+val sqliteVersion         = "3.47.1.0"
 val sttpZioJsonVersion    = "3.10.1"
 val zioConfigVersion      = "4.0.2"
 val zioLoggingVersion     = "2.4.0"
-val zioTestVersion        = "2.1.12"
+val zioTestVersion        = "2.1.14"
 
 val config = Seq(
   "dev.zio" %% "zio-config-typesafe" % zioConfigVersion,
